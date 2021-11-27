@@ -10,27 +10,22 @@ $.getJSON("./table.json", function (json) {
    var tableHeaders =
       "<tr><th id='companyHeader'>company</th><th id='contractHeader'>contract</th><th id='countryHeader'>country</th></tr>";
    table += tableHeaders;
-   table += "<tbody id='tableData'><tr>";
+   table += "<tbody id='tableData'>";
    // forEach() выполняет указанную функцию один раз для каждого элемента в массиве.
-   // data.forEach((element) => {
-   //    var row =
-   //       "<tr><td id='column1'>" +
-   //       element["company"] +
-   //       "</td><td id='column2'> " +
-   //       element["contact"] +
-   //       "</td><td id='column3'>" +
-   //       element["country"] +
-   //       "</td></tr>";
-
-   //    table += row;
-   // });
-
    data.forEach((element) => {
-      var col1 = "<tr id='column1'><td>" + element["company"] + "</td></tr>";
-      table += col1;
+      var row =
+         "<tr id='arrayRow'><td id='column1'>" +
+         element["company"] +
+         "</td><td id='column2'> " +
+         element["contact"] +
+         "</td><td id='column3'>" +
+         element["country"] +
+         "</td></tr>";
+
+      table += row;
    });
 
-   table += "</tr></tbody>";
+   table += "</tbody>";
    table += "</table>";
 
    // Меняем див на тейбл - строка, которую нужно вставить в элемент
@@ -72,9 +67,10 @@ $.getJSON("./table.json", function (json) {
 
    console.log(tableData);
 
+   // ---------------------------------------------------------
    // Пробую применить мануал:
 
-   // Берем наш инпут1 по id:
+   // Берем наш инпут по id:
    let input1 = document.getElementById("companyInput");
 
    // На инпут1 вешаем слушатель на нажатие клавиши и запускаем функцию:
@@ -82,7 +78,7 @@ $.getJSON("./table.json", function (json) {
       // Создаем две переменные, ... к нижнему регистру
       let filter1 = input1.value.toLowerCase(),
          // Элементы, которые будем фильтровать: искать по элементу filter-list и все li
-         filterElements1 = document.querySelectorAll("#column1");
+         filterElements1 = document.querySelectorAll("#arrayRow #column1");
 
       // Проход по элементам, с помощью цикла forEach(по каждому)
       filterElements1.forEach((item) => {
@@ -90,12 +86,67 @@ $.getJSON("./table.json", function (json) {
          // Если в данном item - filter > -1
          // С помощью метода indexOf проверяем - есть ли в этой строке данные, которые в filter
          // -1 тк первая буква с индексом 0, чтобы работало когда ничего не введено
+
          if (item.innerHTML.toLowerCase().indexOf(filter1) > -1) {
             // присваеваем стиль: по умолчанию пустой, если больше -1
-            item.style.display = "";
+            item.parentNode.style.display = "";
          } else {
             // если у нас -1, то скрываем
-            item.style.display = "none";
+            item.parentNode.style.display = "none";
+         }
+      });
+   });
+
+   // ------------------------------------------------------------------------
+   // Берем наш инпут по id:
+   let input2 = document.getElementById("contractInput");
+
+   // На инпут1 вешаем слушатель на нажатие клавиши и запускаем функцию:
+   input2.addEventListener("keyup", function () {
+      // Создаем две переменные, ... к нижнему регистру
+      let filter2 = input2.value.toLowerCase(),
+         // Элементы, которые будем фильтровать: искать по элементу filter-list и все li
+         filterElements2 = document.querySelectorAll("#arrayRow #column2");
+
+      // Проход по элементам, с помощью цикла forEach(по каждому)
+      filterElements2.forEach((item) => {
+         // Для каждого элемента вызываем ф-цию, котора будет проверять:
+         // Если в данном item - filter > -1
+         // С помощью метода indexOf проверяем - есть ли в этой строке данные, которые в filter
+         // -1 тк первая буква с индексом 0, чтобы работало когда ничего не введено
+         if (item.innerHTML.toLowerCase().indexOf(filter2) > -1) {
+            // присваеваем стиль: по умолчанию пустой, если больше -1
+            item.parentNode.style.display = "";
+         } else {
+            // если у нас -1, то скрываем
+            item.parentNode.style.display = "none";
+         }
+      });
+   });
+
+   // ------------------------------------------------------------------------
+   // Берем наш инпут по id:
+   let input3 = document.getElementById("countryInput");
+
+   // На инпут1 вешаем слушатель на нажатие клавиши и запускаем функцию:
+   input3.addEventListener("keyup", function () {
+      // Создаем две переменные, ... к нижнему регистру
+      let filter3 = input3.value.toLowerCase(),
+         // Элементы, которые будем фильтровать: искать по элементу filter-list и все li
+         filterElements3 = document.querySelectorAll("#arrayRow #column3");
+
+      // Проход по элементам, с помощью цикла forEach(по каждому)
+      filterElements3.forEach((item) => {
+         // Для каждого элемента вызываем ф-цию, котора будет проверять:
+         // Если в данном item - filter > -1
+         // С помощью метода indexOf проверяем - есть ли в этой строке данные, которые в filter
+         // -1 тк первая буква с индексом 0, чтобы работало когда ничего не введено
+         if (item.innerHTML.toLowerCase().indexOf(filter3) > -1) {
+            // присваеваем стиль: по умолчанию пустой, если больше -1
+            item.parentNode.style.display = "";
+         } else {
+            // если у нас -1, то скрываем
+            item.parentNode.style.display = "none";
          }
       });
    });
